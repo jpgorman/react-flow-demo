@@ -6,15 +6,16 @@ import {
   addEdge,
   Background,
   Controls,
-  type Node,
   type Edge,
   type OnNodesChange,
   type OnEdgesChange,
   type OnConnect,
+  type Connection,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import type { CustomNode } from "./model/Node.types";
 import { CustomNodeComponent } from "./ui";
+import { validateConnection } from "./model/connection-validation";
 
 const initialNodes: Array<CustomNode> = [
   {
@@ -102,9 +103,13 @@ export default function Flow() {
     []
   );
 
+  const isValidConnection = (connection: Connection) =>
+    validateConnection(connection, nodes);
+
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <ReactFlow
+        isValidConnection={isValidConnection}
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}
