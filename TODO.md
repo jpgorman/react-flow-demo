@@ -24,7 +24,12 @@
 
 - Allow dynamic addition of nodes
   - ControlButton for grouping ?https://reactflow.dev/api-reference/components/control-button
+  https://reactflow.dev/learn/advanced-use/uncontrolled-flow
 
 - Limit number of incoming edges : https://reactflow.dev/examples/nodes/connection-limit
+
+- Memoization : https://reactflow.dev/learn/advanced-use/performance
+
+- Keep state external and control the flows: https://reactflow.dev/learn/advanced-use/state-management
 
 - Custom Nodes : https://reactflow.dev/examples/nodes/custom-node
