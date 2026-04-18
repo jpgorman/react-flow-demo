@@ -1,6 +1,6 @@
-import React, { memo } from "react";
-import { Handle, Position } from "@xyflow/react";
-import type { NodeConnection, NodeData } from "../model/Node.types";
+import { memo } from "react";
+import { Handle, Position, useNodeConnections } from "@xyflow/react";
+import type { NodeConnection } from "../model/Node.types";
 
 type Props = {
   connections?: NodeConnection;
@@ -16,8 +16,7 @@ const styles = {
   },
 };
 
-// TODO too generic? Split into input and output handles
-export const Handles = memo(({ type, connections, isConnectable }: Props) => {
+const Handles = memo(({ type, connections, isConnectable }: Props) => {
   if (!connections) {
     return null;
   }
@@ -40,3 +39,19 @@ export const Handles = memo(({ type, connections, isConnectable }: Props) => {
     </div>
   ));
 });
+
+export const InputHandles = (props: Pick<Props, "connections">) => {
+  const handleType = "target";
+  const nodeConnections = useNodeConnections({
+    handleType,
+  });
+  const isConnectable = nodeConnections.length < 1;
+
+  return <Handles {...props} type={handleType} isConnectable={isConnectable} />;
+};
+
+export const OutputHandles = (props: Pick<Props, "connections">) => {
+  const handleType = "source";
+
+  return <Handles {...props} type={handleType} isConnectable={true} />;
+};

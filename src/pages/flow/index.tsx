@@ -76,7 +76,7 @@ const initialNodes: Array<CustomNode> = [
     },
   },
 ];
-const initialEdges: Array<Edge> = [{ id: "n1-n2", source: "n1", target: "n2" }];
+const initialEdges: Array<Edge> = [{ id: "n1-n2", source: "n1", target: "n2" }, { id: "n2-n3", source: "n2", target: "n3" }];
 
 const nodeTypes = {
   dataSource: CustomNodeComponent,
@@ -103,8 +103,10 @@ export default function Flow() {
     []
   );
 
-  const isValidConnection = (connection: Connection) =>
-    validateConnection(connection, nodes);
+  const isValidConnection = useCallback(
+    (connection: Connection) => validateConnection(connection, nodes),
+    [nodes]
+  );
 
   return (
     <div style={{ width: "100vw", height: "100vh" }}>

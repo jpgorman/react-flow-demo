@@ -1,7 +1,7 @@
-import React, { memo } from "react";
-import { Handle, Position, type NodeProps } from "@xyflow/react";
+import { memo } from "react";
+import { type NodeProps } from "@xyflow/react";
 import type { NodeData } from "../model/Node.types";
-import { Handles } from "./Handles";
+import { InputHandles, OutputHandles } from "./Handles";
 
 const styles = {
   container: {
@@ -15,22 +15,14 @@ const styles = {
 };
 
 export const CustomNodeComponent = memo(
-  ({ data, isConnectable }: NodeProps & { data: NodeData }) => {
+  ({ data }: NodeProps & { data: NodeData }) => {
     return (
       <div style={styles.container}>
-        <Handles
-          type="target"
-          connections={data.inputs}
-          isConnectable={isConnectable}
-        />
+        <InputHandles connections={data.inputs} />
         <div>
           <strong>{data.label}</strong>
         </div>
-        <Handles
-          type="source"
-          connections={data.outputs}
-          isConnectable={isConnectable}
-        />
+        <OutputHandles connections={data.outputs} />
       </div>
     );
   }

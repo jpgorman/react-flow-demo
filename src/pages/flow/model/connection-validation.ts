@@ -8,8 +8,6 @@ export const validateConnection = (
   const sourceNode = nodes.find(({ id }) => id === source);
   const targetNode = nodes.find(({ id }) => id === target);
 
-  console.log(sourceNode);
-  console.log(targetNode);
   if (!targetNode || !sourceNode) {
     return false;
   }
