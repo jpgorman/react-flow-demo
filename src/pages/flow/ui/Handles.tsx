@@ -40,18 +40,28 @@ const Handles = memo(({ type, connections, isConnectable }: Props) => {
   ));
 });
 
-export const InputHandles = (props: Pick<Props, "connections">) => {
-  const handleType = "target";
-  const nodeConnections = useNodeConnections({
-    handleType,
-  });
-  const isConnectable = nodeConnections.length < 1;
+type HandleProps = Pick<Props, "connections">;
 
-  return <Handles {...props} type={handleType} isConnectable={isConnectable} />;
+const INPUT_CONNECTION_LIMIT = 1;
+const INPUT_HANDLE_TYPE = "target";
+
+export const InputHandles = (props: HandleProps) => {
+  const nodeConnections = useNodeConnections({
+    handleType: INPUT_HANDLE_TYPE,
+  });
+  const isConnectable = nodeConnections.length < INPUT_CONNECTION_LIMIT;
+
+  return (
+    <Handles
+      {...props}
+      type={INPUT_HANDLE_TYPE}
+      isConnectable={isConnectable}
+    />
+  );
 };
 
-export const OutputHandles = (props: Pick<Props, "connections">) => {
-  const handleType = "source";
+const OUPUT_HANDLE_TYPE = "source";
 
-  return <Handles {...props} type={handleType} isConnectable={true} />;
+export const OutputHandles = (props: HandleProps) => {
+  return <Handles {...props} type={OUPUT_HANDLE_TYPE} isConnectable={true} />;
 };
