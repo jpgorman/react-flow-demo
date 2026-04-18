@@ -14,6 +14,11 @@ const styles = {
   },
 };
 
+// TODO: Add styling for each node type
+// style: { backgroundColor: '#6ede87', color: 'white' },
+// style: { backgroundColor: '#ff0072', color: 'white' },
+// style: { backgroundColor: '#6865A5', color: 'white' },
+
 export const CustomNodeComponent = memo(
   ({ data }: NodeProps & { data: NodeData }) => {
     return (

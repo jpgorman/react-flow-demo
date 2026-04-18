@@ -1,10 +1,12 @@
 import { type Node } from "@xyflow/react";
 
+export type CustomNodeType = "DataSource" | "Transform" | "Model"
+
 export type NodeData = {
   label: string;
   inputs?: NodeConnection;
   outputs: NodeConnection;
-  nodeType: "DataSource" | "Transform" | "Model";
+  nodeType: CustomNodeType;
 };
 
 export type NodeConnection = Record<string, HandleParam>;

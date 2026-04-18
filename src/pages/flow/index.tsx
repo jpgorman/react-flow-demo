@@ -11,77 +11,46 @@ import {
   type OnEdgesChange,
   type OnConnect,
   type Connection,
+  ControlButton,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import type { CustomNode } from "./model/Node.types";
+import type { CustomNode, CustomNodeType } from "./model/Node.types";
 import { CustomNodeComponent } from "./ui";
 import { validateConnection } from "./model/connection-validation";
+import { CreateNodes } from "./ui/CreateNodes";
+import { createNode } from "./model/create-node";
+
+const dataSourceNode = createNode({
+  type: "DataSource",
+  position: { x: 0, y: 0 },
+});
+
+const transformNode = createNode({
+  type: "Transform",
+  position: { x: 0, y: 100 },
+});
+
+const modelNode = createNode({ type: "Model", position: { x: 0, y: 200 } });
 
 const initialNodes: Array<CustomNode> = [
-  {
-    id: "n1",
-    type: "dataSource",
-    position: { x: 0, y: 0 },
-    data: {
-      nodeType: "DataSource",
-      label: "DataSource",
-      outputs: {
-        n1: {
-          type: "Dataset",
-          label: "Dataset",
-        },
-      },
-    },
-  },
-  {
-    id: "n2",
-    type: "transform",
-    position: { x: 0, y: 100 },
-    data: {
-      nodeType: "Transform",
-      label: "Transform",
-      inputs: {
-        n2: {
-          type: "Dataset",
-          label: "Dataset",
-        },
-      },
-      outputs: {
-        n2: {
-          type: "Dataset",
-          label: "Dataset",
-        },
-      },
-    },
-  },
-  {
-    id: "n3",
-    type: "model",
-    position: { x: 0, y: 100 },
-    data: {
-      nodeType: "Model",
-      label: "Model",
-      inputs: {
-        n3: {
-          type: "Dataset",
-          label: "Dataset",
-        },
-      },
-      outputs: {
-        n3: {
-          type: "Model",
-          label: "Model",
-        },
-      },
-    },
-  },
+  dataSourceNode,
+  transformNode,
+  modelNode,
 ];
-const initialEdges: Array<Edge> = [{ id: "n1-n2", source: "n1", target: "n2" }, { id: "n2-n3", source: "n2", target: "n3" }];
+
+const initialEdges: Array<Edge> = [
+  { id: "n1-n2", source: dataSourceNode.id, target: transformNode.id },
+  { id: "n2-n3", source: transformNode.id, target: modelNode.id },
+];
 
 const nodeTypes = {
-  dataSource: CustomNodeComponent,
-  transform: CustomNodeComponent,
-  model: CustomNodeComponent,
+  DataSource: CustomNodeComponent,
+  Transform: CustomNodeComponent,
+  Model: CustomNodeComponent,
+};
+
+const styles = {
+  container: { width: "100vw", height: "100vh" },
 };
 
 export default function Flow() {
@@ -103,13 +72,24 @@ export default function Flow() {
     []
   );
 
+  const onAddNode = useCallback((type: CustomNodeType) => {
+    const newNode: CustomNode = {
+      id: crypto.randomUUID(),
+      type,
+      position: { x: 250, y: 250 },
+      data: createNodeData(type),
+    };
+    setNodes;
+  }, []);
+
+  // TODO: Maybe a custom hook, but very simple
   const isValidConnection = useCallback(
     (connection: Connection) => validateConnection(connection, nodes),
     [nodes]
   );
 
   return (
-    <div style={{ width: "100vw", height: "100vh" }}>
+    <div style={styles.container}>
       <ReactFlow
         isValidConnection={isValidConnection}
         nodes={nodes}
@@ -120,8 +100,15 @@ export default function Flow() {
         nodeTypes={nodeTypes}
         fitView
       >
+        <CreateNodes />
         <Background />
-        <Controls />
+        <Controls>
+          <ControlButton
+            onClick={() => alert("Something magical just happened. ✨")}
+          >
+            Add new
+          </ControlButton>
+        </Controls>
       </ReactFlow>
     </div>
   );
