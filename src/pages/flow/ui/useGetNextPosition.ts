@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import type { CustomNode } from "../model/node.types";
-import { Position } from "@xyflow/react";
 
 type Position = CustomNode["position"];
 
@@ -10,12 +9,12 @@ const DEFAULT_POSITION: Position = {
 };
 
 const OFFSETS = {
-  x: 10,
-  y: 10,
+  x: 100,
+  y: 100,
 };
-const NODE_WIDTH = 180;
+const NODE_WIDTH = 100;
 const NODE_HEIGHT = 100;
-const PADDING = 40;
+const ADJUST_STEP = 40;
 
 const isOverlapping = (position: Position, nodes: Array<CustomNode>) =>
   nodes.some((node) => {
@@ -41,7 +40,7 @@ export const useGetNextPosition = (nodes: Array<CustomNode>): Position => {
     };
 
     while (isOverlapping(newPosition, nodes)) {
-      newPosition.y += PADDING;
+      newPosition.y += ADJUST_STEP;
     }
 
     return newPosition;
