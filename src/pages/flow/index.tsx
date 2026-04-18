@@ -11,13 +11,11 @@ import {
   type OnEdgesChange,
   type OnConnect,
   type Connection,
-  ControlButton,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import type { CustomNode, CustomNodeType } from "./model/Node.types";
-import { CustomNodeComponent } from "./ui";
-import { validateConnection } from "./model/connection-validation";
-import { CreateNodes } from "./ui/CreateNodes";
+import type { CustomNode, CustomNodeType } from "./model/node.types";
+import { CustomNodeComponent, CreateNodes } from "./ui";
+import { validateConnection } from "./model/validate-connection";
 import { createNode } from "./model/create-node";
 
 const dataSourceNode = createNode({

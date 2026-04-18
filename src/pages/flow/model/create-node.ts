@@ -1,4 +1,4 @@
-import type { CustomNode, CustomNodeType } from "./Node.types";
+import type { CustomNode, CustomNodeType } from "./node.types.types";
 
 type PartialProps = Partial<Omit<CustomNode, "position">>;
 type RequiredProps = {

@@ -1,16 +1,17 @@
 import { Panel } from "@xyflow/react";
-import { memo, useCallback } from "react";
-import type { CustomNodeType } from "../model/Node.types";
+import { memo } from "react";
+import type { CustomNodeType } from "../model/node.types";
 
-const panelStyle = {
-  color: "#777",
-  fontSize: 12,
-};
-
-const buttonStyle = {
-  fontSize: 12,
-  marginRight: 5,
-  marginTop: 5,
+const styles = {
+  container: {
+    color: "#777",
+    fontSize: 12,
+  },
+  button: {
+    fontSize: 12,
+    marginRight: 5,
+    marginTop: 5,
+  },
 };
 
 type Props = {
@@ -19,14 +20,28 @@ type Props = {
 
 export const CreateNodes = memo(({ onAddNode }: Props) => {
   return (
-    <Panel position="top-left" style={panelStyle}>
+    <Panel position="top-left" style={styles.container}>
       <div>
         <button
           onClick={() => onAddNode("DataSource")}
           className="xy-theme__button"
-          style={buttonStyle}
+          style={styles.button}
         >
           Add DataSource
+        </button>
+        <button
+          onClick={() => onAddNode("Transform")}
+          className="xy-theme__button"
+          style={styles.button}
+        >
+          Add Transform
+        </button>
+        <button
+          onClick={() => onAddNode("Model")}
+          className="xy-theme__button"
+          style={styles.button}
+        >
+          Add Model
         </button>
       </div>
     </Panel>

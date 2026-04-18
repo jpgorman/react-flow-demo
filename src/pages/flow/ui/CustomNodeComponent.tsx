@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { type NodeProps } from "@xyflow/react";
-import type { NodeData } from "../model/Node.types";
+import type { NodeData } from "../model/node.types";
 import { InputHandles, OutputHandles } from "./Handles";
 
 const styles = {
