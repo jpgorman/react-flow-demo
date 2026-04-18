@@ -1,4 +1,4 @@
-import type { Connection, Edge, IsValidConnection } from "@xyflow/react";
+import type { Connection } from "@xyflow/react";
 import type { CustomNode } from "./node.types";
 
 export const validateConnection = (

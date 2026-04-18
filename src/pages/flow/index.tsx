@@ -17,6 +17,7 @@ import type { CustomNode, CustomNodeType } from "./model/node.types";
 import { CustomNodeComponent, CreateNodes } from "./ui";
 import { validateConnection } from "./model/validate-connection";
 import { createNode } from "./model/create-node";
+import { useGetNextPosition } from "./ui/useGetNextPosition";
 
 const dataSourceNode = createNode({
   type: "DataSource",
@@ -25,10 +26,10 @@ const dataSourceNode = createNode({
 
 const transformNode = createNode({
   type: "Transform",
-  position: { x: 0, y: 100 },
+  position: { x: 100, y: 100 },
 });
 
-const modelNode = createNode({ type: "Model", position: { x: 0, y: 200 } });
+const modelNode = createNode({ type: "Model", position: { x: 200, y: 200 } });
 
 const initialNodes: Array<CustomNode> = [
   dataSourceNode,
@@ -70,17 +71,18 @@ export default function Flow() {
     []
   );
 
-  const onAddNode = useCallback((type: CustomNodeType) => {
-    const newNode: CustomNode = createNode({
-      type,
-      position: {
-        x: 50,
-        y: 50,
-      },
-    });
-    console.log("click");
-    setNodes((nds) => [...nds, newNode]);
-  }, []);
+  // TODO: custom hook
+  const nextPosition = useGetNextPosition(nodes);
+  const onAddNode = useCallback(
+    (type: CustomNodeType) => {
+      const newNode: CustomNode = createNode({
+        type,
+        position: nextPosition,
+      });
+      setNodes((nds) => [...nds, newNode]);
+    },
+    [nodes]
+  );
 
   // TODO: Maybe a custom hook, but very simple
   const isValidConnection = useCallback(
