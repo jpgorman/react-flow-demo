@@ -1,5 +1,6 @@
 import { Panel } from "@xyflow/react";
-import {useCallback} from "react";
+import { memo, useCallback } from "react";
+import type { CustomNodeType } from "../model/Node.types";
 
 const panelStyle = {
   color: "#777",
@@ -12,28 +13,22 @@ const buttonStyle = {
   marginTop: 5,
 };
 
-export const CreateNodes = () => {
+type Props = {
+  onAddNode: (type: CustomNodeType) => void;
+};
 
-    const handleClick = useCallback(() => {
-
-    }, [])
-
+export const CreateNodes = memo(({ onAddNode }: Props) => {
   return (
     <Panel position="top-left" style={panelStyle}>
-      <div className="description">
-        This is an example of how you can use the zoom pan helper hook
-      </div>
       <div>
-        <button className="xy-theme__button" style={buttonStyle}>
-          focus node
-        </button>
-        <button className="xy-theme__button" style={buttonStyle}>
-          zoom in
-        </button>
-        <button className="xy-theme__button" style={buttonStyle}>
-          zoom out
+        <button
+          onClick={() => onAddNode("DataSource")}
+          className="xy-theme__button"
+          style={buttonStyle}
+        >
+          Add DataSource
         </button>
       </div>
     </Panel>
   );
-};
+});

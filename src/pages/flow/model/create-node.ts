@@ -12,11 +12,13 @@ export const createNode = ({
 }: PartialProps & RequiredProps): CustomNode => {
   return {
     ...overrides,
+    type,
     id: crypto.randomUUID(),
     data: createNodeData(type),
   };
 };
 
+// TODO: Make this function more DRY
 export const createNodeData = (type: CustomNodeType): CustomNode["data"] => {
   switch (type) {
     case "DataSource": {

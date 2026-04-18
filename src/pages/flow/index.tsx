@@ -73,13 +73,15 @@ export default function Flow() {
   );
 
   const onAddNode = useCallback((type: CustomNodeType) => {
-    const newNode: CustomNode = {
-      id: crypto.randomUUID(),
+    const newNode: CustomNode = createNode({
       type,
-      position: { x: 250, y: 250 },
-      data: createNodeData(type),
-    };
-    setNodes;
+      position: {
+        x: 50,
+        y: 50,
+      },
+    });
+    console.log("click");
+    setNodes((nds) => [...nds, newNode]);
   }, []);
 
   // TODO: Maybe a custom hook, but very simple
@@ -100,15 +102,9 @@ export default function Flow() {
         nodeTypes={nodeTypes}
         fitView
       >
-        <CreateNodes />
+        <CreateNodes onAddNode={onAddNode} />
         <Background />
-        <Controls>
-          <ControlButton
-            onClick={() => alert("Something magical just happened. ✨")}
-          >
-            Add new
-          </ControlButton>
-        </Controls>
+        <Controls />
       </ReactFlow>
     </div>
   );
