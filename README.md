@@ -24,8 +24,8 @@ e.g.
 
 ```sh
 /src
-    /pages
     /app
+    /pages
         /flow
             /ui (components/hooks etc)
             /model (types, schema, business logic)
