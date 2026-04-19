@@ -15,7 +15,6 @@
     - Model - Inputs: Dataset , Outputs: Model
 
 
-- Add styles per nodeType
 - Add error message on invalid connection
 - Add Any node type to show model ouput connection
 - Add mutilple outputs and tidy label position
