@@ -20,6 +20,16 @@ $ npm run dev
 
 I've used vertical slices to organise my code. The main benefits are:
 
+e.g.
+
+/src
+    /pages
+    /app
+        /flow
+            /ui (components/hooks etc)
+            /model (types, schema, business logic)
+            
+
 - high cohesion
 - reduce impact of changing business rules changes
 - colocate code based on purpose (what is does, not what it is)
