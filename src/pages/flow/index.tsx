@@ -16,8 +16,7 @@ import "@xyflow/react/dist/style.css";
 import type { CustomNode, CustomNodeType } from "./model/node.types";
 import { CustomNodeComponent, CreateNodes } from "./ui";
 import { validateConnection } from "./model/validate-connection";
-import { createNode } from "./model/create-node";
-import { useGetNextPosition } from "./ui/useGetNextPosition";
+import { createNode, getNextPosition } from "./model";
 
 const dataSourceNode = createNode({
   type: "DataSource",
@@ -72,12 +71,11 @@ export default function Flow() {
   );
 
   // TODO: custom hook
-  const nextPosition = useGetNextPosition(nodes);
   const onAddNode = useCallback(
     (type: CustomNodeType) => {
       const newNode: CustomNode = createNode({
         type,
-        position: nextPosition,
+        position: getNextPosition(nodes),
       });
       setNodes((nds) => [...nds, newNode]);
     },

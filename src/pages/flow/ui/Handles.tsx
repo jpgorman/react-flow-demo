@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { Handle, Position, useNodeConnections } from "@xyflow/react";
-import type { NodeConnection } from "../model/Node.types";
+import type { NodeConnection } from "../model/node.types";
 
 type Props = {
   connections?: NodeConnection;
