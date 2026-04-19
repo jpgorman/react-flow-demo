@@ -62,9 +62,13 @@ export const createNodeData = (type: CustomNodeType): CustomNode["data"] => {
           },
         },
         outputs: {
-          model: {
+          modelA: {
             type: "Model",
-            label: "Model",
+            label: "Model A",
+          },
+          modelB: {
+            type: "Model",
+            label: "Model B",
           },
         },
       };

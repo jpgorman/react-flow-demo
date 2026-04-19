@@ -13,23 +13,14 @@
     - DataSource - Outputs: Dataset
     - Transform - Inputs: Dataset , Outputs: Dataset
     - Model - Inputs: Dataset , Outputs: Model
-  - Handles
-    - Custom? https://reactflow.dev/learn/customization/handles
 
-- Add interactivity
-  - Allow for nodes to react to position changes etc
-    https://reactflow.dev/learn/concepts/adding-interactivity
-- Handle connections
-  - Can be used to edge validation? https://reactflow.dev/learn/concepts/adding-interactivity#handling-connections
 
-- Allow dynamic addition of nodes
-  - ControlButton for grouping ?https://reactflow.dev/api-reference/components/control-button
-  https://reactflow.dev/learn/advanced-use/uncontrolled-flow
+- Add styles per nodeType
+- Add error message on invalid connection
+- Add Any node type to show model ouput connection
+- Add mutilple outputs and tidy label position
 
-- Limit number of incoming edges : https://reactflow.dev/examples/nodes/connection-limit
 
-- Memoization : https://reactflow.dev/learn/advanced-use/performance
 
 - Keep state external and control the flows: https://reactflow.dev/learn/advanced-use/state-management
 
-- Custom Nodes : https://reactflow.dev/examples/nodes/custom-node

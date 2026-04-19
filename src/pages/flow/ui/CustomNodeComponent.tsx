@@ -7,22 +7,18 @@ const styles = {
   container: {
     color: "black",
     fontSize: 12,
-    borderRadius: 8,
     background: "white",
     padding: 10,
-    border: "1px solid #ccc",
   },
+  DataSource: { backgroundColor: "#6ede87", color: "white" },
+  Model: { backgroundColor: "#ff0072", color: "white" },
+  Transform: { backgroundColor: "#6865A5", color: "white" },
 };
 
-// TODO: Add styling for each node type
-// style: { backgroundColor: '#6ede87', color: 'white' },
-// style: { backgroundColor: '#ff0072', color: 'white' },
-// style: { backgroundColor: '#6865A5', color: 'white' },
-
 export const CustomNodeComponent = memo(
-  ({ data }: NodeProps & { data: NodeData }) => {
+  ({ data, type }: NodeProps & { data: NodeData }) => {
     return (
-      <div style={styles.container}>
+      <div style={{ ...styles.container, ...styles[type] }}>
         <InputHandles connections={data.inputs} />
         <div>
           <strong>{data.label}</strong>

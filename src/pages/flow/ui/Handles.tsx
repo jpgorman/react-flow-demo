@@ -10,9 +10,23 @@ type Props = {
 
 const styles = {
   container: {
+    display: "inline-flex",
+    gap: 4,
+  },
+  handle: {
+    position: "relative",
     fontSize: 10,
+    padding: 4,
     borderRadius: 8,
-    border: "1px solid #ccc",
+    border: "1px solid white",
+  },
+  connectables: {
+    target: {
+      top: -12,
+    },
+    source: {
+      bottom: -12,
+    },
   },
 };
 
@@ -22,22 +36,24 @@ const Handles = memo(({ type, connections, isConnectable }: Props) => {
   }
 
   const position = type === "source" ? Position.Bottom : Position.Top;
-  return Object.entries(connections).map(([id, params], index) => (
-    <div key={id} style={styles.container}>
-      <Handle
-        isConnectable={isConnectable}
-        id={id}
-        type={type}
-        position={position}
-        onConnect={(params) => console.log("handle onConnect", params)}
-        style={{
-          // TODO: improve positioning
-          left: 40 + index * 30,
-        }}
-      />
-      <span>{params.label}</span>
+  const connectableStyle =
+    type === "source" ? styles.connectables.source : styles.connectables.target;
+  return (
+    <div style={styles.container}>
+      {Object.entries(connections).map(([id, params], index) => (
+        <div key={id} style={styles.handle}>
+          <Handle
+            isConnectable={isConnectable}
+            id={id}
+            type={type}
+            position={position}
+            style={connectableStyle}
+          />
+          <span>{params.label}</span>
+        </div>
+      ))}
     </div>
-  ));
+  );
 });
 
 type HandleProps = Pick<Props, "connections">;
