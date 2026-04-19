@@ -22,13 +22,14 @@ I've used vertical slices to organise my code. The main benefits are:
 
 e.g.
 
+```sh
 /src
     /pages
     /app
         /flow
             /ui (components/hooks etc)
             /model (types, schema, business logic)
-            
+```
 
 - high cohesion
 - reduce impact of changing business rules changes
