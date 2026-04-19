@@ -11,12 +11,14 @@ import {
   type OnEdgesChange,
   type OnConnect,
   type Connection,
+  type OnConnectEnd,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import type { CustomNode, CustomNodeType } from "./model/node.types";
 import { CustomNodeComponent, CreateNodes } from "./ui";
 import { validateConnection } from "./model/validate-connection";
 import { createNode, getNextPosition } from "./model";
+import toast, { Toaster } from "react-hot-toast";
 
 const dataSourceNode = createNode({
   type: "DataSource",
@@ -66,11 +68,16 @@ export default function Flow() {
     []
   );
   const onConnect: OnConnect = useCallback(
-    (params) => setEdges((edgesSnapshot) => addEdge(params, edgesSnapshot)),
+    (connection) =>
+      setEdges((edgesSnapshot) => addEdge(connection, edgesSnapshot)),
     []
   );
+  const onConnectEnd: OnConnectEnd = (_, state) => {
+    if (!state.isValid) {
+      toast.error("This connection isn't valid");
+    }
+  };
 
-  // TODO: custom hook
   const onAddNode = useCallback(
     (type: CustomNodeType) => {
       const newNode: CustomNode = createNode({
@@ -82,7 +89,6 @@ export default function Flow() {
     [nodes]
   );
 
-  // TODO: Maybe a custom hook, but very simple
   const isValidConnection = useCallback(
     (connection: Connection) => validateConnection(connection, nodes),
     [nodes]
@@ -90,6 +96,7 @@ export default function Flow() {
 
   return (
     <div style={styles.container}>
+      <Toaster />
       <ReactFlow
         isValidConnection={isValidConnection}
         nodes={nodes}
@@ -97,6 +104,7 @@ export default function Flow() {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
+        onConnectEnd={onConnectEnd}
         nodeTypes={nodeTypes}
         fitView
       >
