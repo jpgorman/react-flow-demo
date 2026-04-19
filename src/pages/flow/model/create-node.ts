@@ -39,14 +39,18 @@ export const createNodeData = (type: CustomNodeType): CustomNode["data"] => {
         label: "Transform",
         inputs: {
           dataset: {
-            type: "Dataset",
-            label: "Dataset",
+            type: "Any",
+            label: "Any",
           },
         },
         outputs: {
-          dataset: {
+          any: {
+            type: "Any",
+            label: "Any A",
+          },
+          datasetB: {
             type: "Dataset",
-            label: "Dataset",
+            label: "Dataset B",
           },
         },
       };

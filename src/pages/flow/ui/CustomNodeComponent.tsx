@@ -15,11 +15,15 @@ const styles = {
   Transform: { backgroundColor: "#6865A5", color: "white" },
 };
 
+export type CustomNodeComponentProps = NodeProps & { data: NodeData };
+
 export const CustomNodeComponent = memo(
-  ({ data, type }: NodeProps & { data: NodeData }) => {
+  ({ data, type }: CustomNodeComponentProps) => {
     return (
       <div style={{ ...styles.container, ...styles[type] }}>
-        <InputHandles connections={data.inputs} />
+        {data.nodeType !== "DataSource" && (
+          <InputHandles connections={data.inputs} />
+        )}
         <div>
           <strong>{data.label}</strong>
         </div>

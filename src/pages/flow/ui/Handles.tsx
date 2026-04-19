@@ -3,7 +3,7 @@ import { Handle, Position, useNodeConnections } from "@xyflow/react";
 import type { NodeConnection } from "../model/node.types";
 
 type Props = {
-  connections?: NodeConnection;
+  connections: NodeConnection;
   isConnectable: boolean;
   type: "source" | "target";
 };

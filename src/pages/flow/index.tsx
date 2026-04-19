@@ -1,4 +1,9 @@
-import { useState, useCallback } from "react";
+import {
+  useState,
+  useCallback,
+  type ReactElement,
+  type FunctionComponent,
+} from "react";
 import {
   ReactFlow,
   applyNodeChanges,
@@ -15,7 +20,11 @@ import {
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import type { CustomNode, CustomNodeType } from "./model/node.types";
-import { CustomNodeComponent, CreateNodes } from "./ui";
+import {
+  CustomNodeComponent,
+  CreateNodes,
+  type CustomNodeComponentProps,
+} from "./ui";
 import { validateConnection } from "./model";
 import { createNode, getNextPosition } from "./model";
 import toast, { Toaster } from "react-hot-toast";
@@ -53,7 +62,10 @@ const initialEdges: Array<Edge> = [
   },
 ];
 
-const nodeTypes = {
+const nodeTypes: Record<
+  CustomNodeType,
+  FunctionComponent<CustomNodeComponentProps>
+> = {
   DataSource: CustomNodeComponent,
   Transform: CustomNodeComponent,
   Model: CustomNodeComponent,
@@ -71,9 +83,10 @@ export default function Flow() {
 
   const onNodesChange: OnNodesChange = useCallback(
     (changes) =>
-      setNodes((nodesSnapshot) => {
-        return applyNodeChanges(changes, nodesSnapshot) as Array<CustomNode>;
-      }),
+      setNodes(
+        (nodesSnapshot) =>
+          applyNodeChanges(changes, nodesSnapshot) as Array<CustomNode>
+      ),
     []
   );
   const onEdgesChange: OnEdgesChange = useCallback(
