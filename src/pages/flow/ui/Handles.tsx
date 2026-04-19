@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, type CSSProperties } from "react";
 import { Handle, Position, useNodeConnections } from "@xyflow/react";
 import type { NodeConnection } from "../model/node.types";
 
@@ -7,6 +7,8 @@ type Props = {
   isConnectable: boolean;
   type: "source" | "target";
 };
+
+type CSSProps = Record<string, CSSProperties | Record<string, CSSProperties>>;
 
 const styles = {
   container: {
@@ -28,26 +30,27 @@ const styles = {
       bottom: -12,
     },
   },
-};
+} satisfies CSSProps;
 
 const Handles = memo(({ type, connections, isConnectable }: Props) => {
   if (!connections) {
     return null;
   }
 
-  const position = type === "source" ? Position.Bottom : Position.Top;
-  const connectableStyle =
-    type === "source" ? styles.connectables.source : styles.connectables.target;
   return (
     <div style={styles.container}>
-      {Object.entries(connections).map(([id, params], index) => (
+      {Object.entries(connections).map(([id, params]) => (
         <div key={id} style={styles.handle}>
           <Handle
             isConnectable={isConnectable}
             id={id}
             type={type}
-            position={position}
-            style={connectableStyle}
+            position={type === "source" ? Position.Bottom : Position.Top}
+            style={
+              type === "source"
+                ? styles.connectables.source
+                : styles.connectables.target
+            }
           />
           <span>{params.label}</span>
         </div>
