@@ -16,31 +16,41 @@ import {
 import "@xyflow/react/dist/style.css";
 import type { CustomNode, CustomNodeType } from "./model/node.types";
 import { CustomNodeComponent, CreateNodes } from "./ui";
-import { validateConnection } from "./model/validate-connection";
+import { validateConnection } from "./model";
 import { createNode, getNextPosition } from "./model";
 import toast, { Toaster } from "react-hot-toast";
 
+let initialNodes: Array<CustomNode> = [];
+
 const dataSourceNode = createNode({
   type: "DataSource",
-  position: { x: 0, y: 0 },
+  position: getNextPosition(initialNodes),
 });
+initialNodes.push(dataSourceNode);
 
 const transformNode = createNode({
   type: "Transform",
-  position: { x: 100, y: 100 },
+  position: getNextPosition(initialNodes),
 });
+initialNodes.push(transformNode);
 
-const modelNode = createNode({ type: "Model", position: { x: 200, y: 200 } });
-
-const initialNodes: Array<CustomNode> = [
-  dataSourceNode,
-  transformNode,
-  modelNode,
-];
+const modelNode = createNode({
+  type: "Model",
+  position: getNextPosition(initialNodes),
+});
+initialNodes.push(modelNode);
 
 const initialEdges: Array<Edge> = [
-  { id: "n1-n2", source: dataSourceNode.id, target: transformNode.id },
-  { id: "n2-n3", source: transformNode.id, target: modelNode.id },
+  {
+    id: crypto.randomUUID(),
+    source: dataSourceNode.id,
+    target: transformNode.id,
+  },
+  {
+    id: crypto.randomUUID(),
+    source: transformNode.id,
+    target: modelNode.id,
+  },
 ];
 
 const nodeTypes = {
@@ -53,13 +63,17 @@ const styles = {
   container: { width: "100vw", height: "100vh" },
 };
 
+const INVALID_CONNECTION_MSG = "This connection isn't valid";
+
 export default function Flow() {
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
 
   const onNodesChange: OnNodesChange = useCallback(
     (changes) =>
-      setNodes((nodesSnapshot) => applyNodeChanges(changes, nodesSnapshot)),
+      setNodes((nodesSnapshot) => {
+        return applyNodeChanges(changes, nodesSnapshot) as Array<CustomNode>;
+      }),
     []
   );
   const onEdgesChange: OnEdgesChange = useCallback(
@@ -74,7 +88,7 @@ export default function Flow() {
   );
   const onConnectEnd: OnConnectEnd = (_, state) => {
     if (!state.isValid) {
-      toast.error("This connection isn't valid");
+      toast.error(INVALID_CONNECTION_MSG);
     }
   };
 
