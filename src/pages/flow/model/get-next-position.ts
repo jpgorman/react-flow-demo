@@ -19,7 +19,7 @@ const ADJUST_STEP = 40;
 * We're using a simple collision detection method
 * to handle placement of new nodes.
 * Looking around it seems that a producion ready
-* approach would use layour engines like Dagre.
+* approach would use layout engines like Dagre.
 */
 
 const isOverlapping = (position: Position, nodes: Array<CustomNode>) =>

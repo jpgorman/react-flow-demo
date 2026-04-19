@@ -97,19 +97,9 @@ p {
   margin: 0;
 }
 
-/*
-.react-flow__node-Datasource .react-flow__handle.connectable,
-.react-flow__node-Model .react-flow__handle.connectable,
-.react-flow__node-Transform .react-flow__handle.connectable {
-  border-color: var(--xy-theme-selected);
-  background: var(--xy-theme-selected);
-
-  &:hover {
-    background: var(--xy-theme-selected);
-  }
-}
-*/
-.react-flow__node {
+.react-flow__node-DataSource,
+.react-flow__node-Transform,
+.react-flow__node-Model {
   padding: 0;
 }
 .react-flow__node-Datasource .react-flow__handle.connectingto,

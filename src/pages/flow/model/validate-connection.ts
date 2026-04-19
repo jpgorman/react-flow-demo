@@ -14,7 +14,8 @@ export const validateConnection = (
 
   const output = sourceNode.data.outputs[sourceHandle] ?? null;
 
-  const input = targetNode.data.inputs[targetHandle] ?? null;
+  const input =
+    "inputs" in targetNode.data ? targetNode.data.inputs[targetHandle] : null;
 
   if (!output || !input) {
     return false;

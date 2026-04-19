@@ -1,9 +1,4 @@
-import {
-  useState,
-  useCallback,
-  type ReactElement,
-  type FunctionComponent,
-} from "react";
+import { useState, useCallback, type FunctionComponent } from "react";
 import {
   ReactFlow,
   applyNodeChanges,
