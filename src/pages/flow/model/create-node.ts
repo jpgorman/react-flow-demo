@@ -50,10 +50,10 @@ export const createNodeData = (
         label: "Transform",
         inputs: {
           [`${id}-input-a`]: generateHandleParam("Dataset"),
-          [`${id}-input-b`]: generateHandleParam("Any"),
+          [`${id}-input-b`]: generateHandleParam("Dataset"),
         },
         outputs: {
-          [`${id}-output-a`]: generateHandleParam("Any"),
+          [`${id}-output-a`]: generateHandleParam("Dataset"),
           [`${id}-output-b`]: generateHandleParam("Dataset"),
         },
       };
