@@ -2,6 +2,15 @@ import type { CustomNode } from "./node.types";
 
 type Position = CustomNode["position"];
 
+/**
+ *
+ * For give the magic numbers.
+ * With more time I would prefer to actually measure
+ * the last added node and then place the next node
+ * just outside of the coordinates of that node.
+ * Due to time constraints I opted to set some "reasonable"
+ * defaults, but they aren't at all exact.
+ */
 const NODE_WIDTH = 140;
 const NODE_HEIGHT = 180;
 const ADJUST_STEP = 40;

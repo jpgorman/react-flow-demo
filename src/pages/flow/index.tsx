@@ -6,7 +6,6 @@ import {
   addEdge,
   Background,
   Controls,
-  type Edge,
   type OnNodesChange,
   type OnEdgesChange,
   type OnConnect,
@@ -20,45 +19,14 @@ import {
   CreateNodes,
   type CustomNodeComponentProps,
 } from "./ui";
-import type { CSSProps, CustomNode, CustomNodeType } from "./model";
-import { validateConnection, createNode, getNextPosition } from "./model";
-
-let initialNodes: Array<CustomNode> = [];
-
-const dataSourceNode = createNode({
-  type: "DataSource",
-  position: getNextPosition(initialNodes),
-});
-initialNodes.push(dataSourceNode);
-
-const transformNode = createNode({
-  type: "Transform",
-  position: getNextPosition(initialNodes),
-});
-initialNodes.push(transformNode);
-
-const modelNode = createNode({
-  type: "Model",
-  position: getNextPosition(initialNodes),
-});
-initialNodes.push(modelNode);
-
-const initialEdges: Array<Edge> = [
-  {
-    id: `${dataSourceNode.id}-${transformNode.id}`,
-    source: dataSourceNode.id,
-    sourceHandle: `${dataSourceNode.id}-output-a`,
-    target: transformNode.id,
-    targetHandle: `${transformNode.id}-input-a`,
-  },
-  {
-    id: `${transformNode.id}-${modelNode.id}`,
-    source: transformNode.id,
-    sourceHandle: `${transformNode.id}-output-a`,
-    target: modelNode.id,
-    targetHandle: `${modelNode.id}-input-a`,
-  },
-];
+import type { CustomNode, CustomNodeType } from "./model";
+import {
+  validateConnection,
+  createNode,
+  getNextPosition,
+  initialNodes,
+  initialEdges,
+} from "./model";
 
 const nodeTypes: Record<
   CustomNodeType,
@@ -68,10 +36,6 @@ const nodeTypes: Record<
   Transform: CustomNodeComponent,
   Model: CustomNodeComponent,
 };
-
-const styles = {
-  container: { width: "100vw", height: "100vh" },
-} satisfies CSSProps;
 
 const INVALID_CONNECTION_MSG = "This connection isn't valid";
 
@@ -105,10 +69,13 @@ export default function Flow() {
 
   const onAddNode = useCallback(
     (type: CustomNodeType) => {
-      setNodes((nds) => [...nds, createNode({
-        type,
-        position: getNextPosition(nodes),
-      })]);
+      setNodes((nds) => [
+        ...nds,
+        createNode({
+          type,
+          position: getNextPosition(nodes),
+        }),
+      ]);
     },
     [nodes]
   );
@@ -119,7 +86,7 @@ export default function Flow() {
   );
 
   return (
-    <div style={styles.container}>
+    <>
       <Toaster />
       <ReactFlow
         isValidConnection={isValidConnection}
@@ -136,6 +103,6 @@ export default function Flow() {
         <Background />
         <Controls />
       </ReactFlow>
-    </div>
+    </>
   );
 }

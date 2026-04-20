@@ -3,7 +3,6 @@ import type {
   CustomNodeType,
   DataType,
   HandleParam,
-  NodeConnection,
 } from "./node.types";
 
 type PartialProps = Partial<Omit<CustomNode, "position">>;
