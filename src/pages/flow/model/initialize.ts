@@ -3,7 +3,7 @@ import { createNode } from "./create-node";
 import { getNextPosition } from "./get-next-position";
 import type { CustomNode } from "./node.types";
 
-export let initialNodes: Array<CustomNode> = [];
+export const initialNodes: Array<CustomNode> = [];
 
 const dataSourceNode = createNode({
   type: "DataSource",
