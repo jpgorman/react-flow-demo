@@ -8,7 +8,7 @@ const DEFAULT_POSITION: Position = {
 };
 
 const OFFSETS = {
-  x: 100,
+  x: 150,
   y: 100,
 };
 const NODE_WIDTH = 100;
@@ -41,7 +41,7 @@ export const getNextPosition = (nodes: Array<CustomNode>): Position => {
 
   const newPosition = {
     x: latestAdded.position.x + OFFSETS.x,
-    y: latestAdded.position.y + OFFSETS.y,
+    y: latestAdded.position.y,
   };
 
   while (isOverlapping(newPosition, nodes)) {

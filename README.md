@@ -52,6 +52,7 @@ I did ponder using zustand for global and localized state. The advantage is that
 - Add unit tests
 - Improve linting to include type checks and formatting
 - Add pre-commit hooks
+- Allow for inputs and outputs to be set dynamically based on the nodeType
 - Collision detection is basic at best. Some work here would make the result feel much more professional. Using tools like dagre or d3-force whch some animation would go a long way to improve this.
 - I've kept styling to a minimum. For component I've used the simplest approach and used react CSSProperties. This puts the styles along side their consumbers. For react-flow specific overrides I've put these into the index.css though I've name spaced these overrides to the custom node components. Implementing tailwind or some other css toolbelt with treeshaking would scale much better and reduce the need for css in js entirely.
 

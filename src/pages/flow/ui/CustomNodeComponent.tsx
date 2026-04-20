@@ -19,7 +19,7 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     gap: 4,
-    background: "darkgray",
+    background: "lightgray",
     paddingTop: 4,
     paddingBottom: 4,
   },
