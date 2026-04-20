@@ -1,3 +1,3 @@
 export * from "./logic";
 export * from "./config";
-export * from "./types";
+export * from "./typing";
