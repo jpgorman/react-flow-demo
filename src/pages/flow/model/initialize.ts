@@ -3,7 +3,7 @@ import { createNode } from "./create-node";
 import { getNextPosition } from "./get-next-position";
 import type { CustomNode } from "./node.types";
 
-export const initialNodes: Array<CustomNode> = [];
+const initialNodes: Array<CustomNode> = [];
 
 const dataSourceNode = createNode({
   type: "DataSource",
@@ -23,7 +23,7 @@ const modelNode = createNode({
 });
 initialNodes.push(modelNode);
 
-export const initialEdges: Array<Edge> = [
+const initialEdges: Array<Edge> = [
   {
     id: `${dataSourceNode.id}-${transformNode.id}`,
     source: dataSourceNode.id,
@@ -39,3 +39,8 @@ export const initialEdges: Array<Edge> = [
     targetHandle: `${modelNode.id}-input-a`,
   },
 ];
+
+export const initialize = {
+  edges: initialEdges,
+  nodes: initialNodes,
+};

@@ -24,8 +24,7 @@ import {
   validateConnection,
   createNode,
   getNextPosition,
-  initialNodes,
-  initialEdges,
+  initialize,
 } from "./model";
 
 const nodeTypes: Record<
@@ -40,8 +39,8 @@ const nodeTypes: Record<
 const INVALID_CONNECTION_MSG = "This connection isn't valid";
 
 export default function Flow() {
-  const [nodes, setNodes] = useState(initialNodes);
-  const [edges, setEdges] = useState(initialEdges);
+  const [nodes, setNodes] = useState(initialize.nodes);
+  const [edges, setEdges] = useState(initialize.edges);
 
   const onNodesChange: OnNodesChange = useCallback(
     (changes) =>
