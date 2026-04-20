@@ -1,7 +1,6 @@
 import type { Edge } from "@xyflow/react";
-import { createNode } from "./create-node";
-import { getNextPosition } from "./get-next-position";
-import type { CustomNode } from "./node.types";
+import { createNode, getNextPosition } from "../logic";
+import type { CustomNode } from "../typing";
 
 const initialNodes: Array<CustomNode> = [];
 
