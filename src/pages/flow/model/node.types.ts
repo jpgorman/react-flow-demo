@@ -21,9 +21,9 @@ export type NodeConnection = Record<string, HandleParam>;
 
 export type CustomNode = Node<NodeData>;
 
-type HandleParam = {
+export type HandleParam = {
   type: DataType;
   label: string;
 };
 
-type DataType = "Dataset" | "Model" | "Any";
+export type DataType = "Dataset" | "Model" | "Any";

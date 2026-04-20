@@ -46,14 +46,18 @@ initialNodes.push(modelNode);
 
 const initialEdges: Array<Edge> = [
   {
-    id: crypto.randomUUID(),
+    id: `${dataSourceNode.id}-${transformNode.id}`,
     source: dataSourceNode.id,
+    sourceHandle: `${dataSourceNode.id}-output-a`,
     target: transformNode.id,
+    targetHandle: `${transformNode.id}-input-a`,
   },
   {
-    id: crypto.randomUUID(),
+    id: `${transformNode.id}-${modelNode.id}`,
     source: transformNode.id,
+    sourceHandle: `${transformNode.id}-output-a`,
     target: modelNode.id,
+    targetHandle: `${modelNode.id}-input-a`,
   },
 ];
 
@@ -112,8 +116,8 @@ export default function Flow() {
   );
 
   const isValidConnection = useCallback(
-    (connection: Connection) => validateConnection(connection, nodes),
-    [nodes]
+    (connection: Connection) => validateConnection(connection, nodes, edges),
+    [nodes, edges]
   );
 
   return (

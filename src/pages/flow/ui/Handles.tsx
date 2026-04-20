@@ -1,11 +1,10 @@
-import { memo, type CSSProperties } from "react";
+import { memo } from "react";
 import { Handle, Position, useNodeConnections } from "@xyflow/react";
 import type { NodeConnection } from "../model/node.types";
 import type { CSSProps } from "../model/css.types";
 
 type Props = {
   connections: NodeConnection;
-  isConnectable: boolean;
   type: "source" | "target";
 };
 
@@ -19,7 +18,7 @@ const styles = {
     paddingRight: 8,
     backgroundColor: "white",
     borderRadius: 2,
-    border: "1px solid black"
+    border: "1px solid black",
   },
   input: {
     textAlign: "left",
@@ -41,7 +40,7 @@ const styles = {
   },
 } satisfies CSSProps;
 
-const Handles = memo(({ type, connections, isConnectable }: Props) => {
+const Handles = memo(({ type, connections }: Props) => {
   if (!connections) {
     return null;
   }
@@ -55,7 +54,6 @@ const Handles = memo(({ type, connections, isConnectable }: Props) => {
       }}
     >
       <Handle
-        isConnectable={isConnectable}
         id={id}
         type={type}
         position={type === "source" ? Position.Right : Position.Left}
@@ -72,26 +70,10 @@ const Handles = memo(({ type, connections, isConnectable }: Props) => {
 
 type HandleProps = Pick<Props, "connections">;
 
-const INPUT_CONNECTION_LIMIT = 1;
-const INPUT_HANDLE_TYPE = "target";
-
 export const InputHandles = (props: HandleProps) => {
-  const nodeConnections = useNodeConnections({
-    handleType: INPUT_HANDLE_TYPE,
-  });
-  const isConnectable = nodeConnections.length < INPUT_CONNECTION_LIMIT;
-
-  return (
-    <Handles
-      {...props}
-      type={INPUT_HANDLE_TYPE}
-      isConnectable={isConnectable}
-    />
-  );
+  return <Handles {...props} type="target" />;
 };
 
-const OUPUT_HANDLE_TYPE = "source";
-
 export const OutputHandles = (props: HandleProps) => {
-  return <Handles {...props} type={OUPUT_HANDLE_TYPE} isConnectable={true} />;
+  return <Handles {...props} type="source" />;
 };

@@ -1,4 +1,10 @@
-import type { CustomNode, CustomNodeType } from "./node.types";
+import type {
+  CustomNode,
+  CustomNodeType,
+  DataType,
+  HandleParam,
+  NodeConnection,
+} from "./node.types";
 
 type PartialProps = Partial<Omit<CustomNode, "position">>;
 type RequiredProps = {
@@ -10,26 +16,32 @@ export const createNode = ({
   type,
   ...overrides
 }: PartialProps & RequiredProps): CustomNode => {
+  const id = crypto.randomUUID();
   return {
     ...overrides,
     type,
-    id: crypto.randomUUID(),
-    data: createNodeData(type),
+    id,
+    data: createNodeData(type, id),
   };
 };
 
+const generateHandleParam = (type: DataType): HandleParam => ({
+  type,
+  label: type,
+});
+
 // TODO: Make this function more DRY
-export const createNodeData = (type: CustomNodeType): CustomNode["data"] => {
+export const createNodeData = (
+  type: CustomNodeType,
+  id: string
+): CustomNode["data"] => {
   switch (type) {
     case "DataSource": {
       return {
         nodeType: "DataSource",
         label: "DataSource",
         outputs: {
-          dataset: {
-            type: "Dataset",
-            label: "Dataset",
-          },
+          [`${id}-output-a`]: generateHandleParam("Dataset"),
         },
       };
     }
@@ -38,20 +50,12 @@ export const createNodeData = (type: CustomNodeType): CustomNode["data"] => {
         nodeType: "Transform",
         label: "Transform",
         inputs: {
-          dataset: {
-            type: "Any",
-            label: "Any",
-          },
+          [`${id}-input-a`]: generateHandleParam("Dataset"),
+          [`${id}-input-b`]: generateHandleParam("Any"),
         },
         outputs: {
-          any: {
-            type: "Any",
-            label: "Any A",
-          },
-          datasetB: {
-            type: "Dataset",
-            label: "Dataset B",
-          },
+          [`${id}-output-a`]: generateHandleParam("Any"),
+          [`${id}-output-b`]: generateHandleParam("Dataset"),
         },
       };
     }
@@ -60,20 +64,12 @@ export const createNodeData = (type: CustomNodeType): CustomNode["data"] => {
         nodeType: "Model",
         label: "Model",
         inputs: {
-          dataset: {
-            type: "Dataset",
-            label: "Dataset",
-          },
+          [`${id}-input-a`]: generateHandleParam("Dataset"),
+          [`${id}-input-b`]: generateHandleParam("Dataset"),
         },
         outputs: {
-          modelA: {
-            type: "Model",
-            label: "Model A",
-          },
-          modelB: {
-            type: "Model",
-            label: "Model B",
-          },
+          [`${id}-output-a`]: generateHandleParam("Model"),
+          [`${id}-output-b`]: generateHandleParam("Model"),
         },
       };
     }
