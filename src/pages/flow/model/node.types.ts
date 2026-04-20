@@ -3,7 +3,7 @@ import { type Node } from "@xyflow/react";
 export type CustomNodeType = "DataSource" | "Transform" | "Model";
 
 // Use discriminated union to ensure which nodeTypes
-// have inputs and which have only outputs
+// have inputs and which have outputs only
 export type NodeData =
   | {
       label: string;

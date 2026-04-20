@@ -21,6 +21,10 @@ export const validateConnection = (
   if (!output || !input) {
     return false;
   }
+
+  // Limit input connections to 1
+  // We could add maxConnections as a property on HandleParam
+  // then we can count the number of matching connections and assert when they reach maxConnections
   const alreadyConnected = edges.some(
     (e) => e.target === target && e.targetHandle === targetHandle
   );

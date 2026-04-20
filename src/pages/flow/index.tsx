@@ -14,15 +14,14 @@ import {
   type OnConnectEnd,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import type { CustomNode, CustomNodeType } from "./model/node.types";
+import toast, { Toaster } from "react-hot-toast";
 import {
   CustomNodeComponent,
   CreateNodes,
   type CustomNodeComponentProps,
 } from "./ui";
-import { validateConnection } from "./model";
-import { createNode, getNextPosition } from "./model";
-import toast, { Toaster } from "react-hot-toast";
+import type { CSSProps, CustomNode, CustomNodeType } from "./model";
+import { validateConnection, createNode, getNextPosition } from "./model";
 
 let initialNodes: Array<CustomNode> = [];
 
@@ -72,7 +71,7 @@ const nodeTypes: Record<
 
 const styles = {
   container: { width: "100vw", height: "100vh" },
-};
+} satisfies CSSProps;
 
 const INVALID_CONNECTION_MSG = "This connection isn't valid";
 
@@ -106,11 +105,10 @@ export default function Flow() {
 
   const onAddNode = useCallback(
     (type: CustomNodeType) => {
-      const newNode: CustomNode = createNode({
+      setNodes((nds) => [...nds, createNode({
         type,
         position: getNextPosition(nodes),
-      });
-      setNodes((nds) => [...nds, newNode]);
+      })]);
     },
     [nodes]
   );

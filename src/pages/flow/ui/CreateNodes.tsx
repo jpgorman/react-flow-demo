@@ -3,14 +3,8 @@ import { memo } from "react";
 import type { CustomNodeType } from "../model/node.types";
 
 const styles = {
-  container: {
-    color: "#777",
-    fontSize: 12,
-  },
   button: {
     fontSize: 12,
-    marginRight: 5,
-    marginTop: 5,
   },
 };
 
@@ -20,8 +14,7 @@ type Props = {
 
 export const CreateNodes = memo(({ onAddNode }: Props) => {
   return (
-    <Panel position="top-left" style={styles.container}>
-      <div>
+    <Panel position="top-left">
         <button
           onClick={() => onAddNode("DataSource")}
           className="xy-theme__button"
@@ -43,7 +36,6 @@ export const CreateNodes = memo(({ onAddNode }: Props) => {
         >
           Add Model
         </button>
-      </div>
     </Panel>
   );
 });
