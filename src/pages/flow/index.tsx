@@ -26,6 +26,7 @@ import {
   getNextPosition,
   initialize,
 } from "./model";
+import { Toast } from "./ui/Toast";
 
 const nodeTypes: Record<
   CustomNodeType,
@@ -41,6 +42,7 @@ const INVALID_CONNECTION_MSG = "This connection isn't valid";
 export default function Flow() {
   const [nodes, setNodes] = useState(initialize.nodes);
   const [edges, setEdges] = useState(initialize.edges);
+  const [error, setError] = useState<string | null>(null);
 
   const onNodesChange: OnNodesChange = useCallback(
     (changes) =>
@@ -62,9 +64,13 @@ export default function Flow() {
   );
   const onConnectEnd: OnConnectEnd = (_, state) => {
     if (!state.isValid) {
-      toast.error(INVALID_CONNECTION_MSG);
+      setError(INVALID_CONNECTION_MSG);
     }
   };
+
+  const onCloseToast = useCallback(() => {
+    setError(null);
+  }, [error]);
 
   const onAddNode = useCallback(
     (type: CustomNodeType) => {
@@ -86,7 +92,7 @@ export default function Flow() {
 
   return (
     <>
-      <Toaster />
+      {error && <Toast onClose={onCloseToast}>{error}</Toast>}
       <ReactFlow
         isValidConnection={isValidConnection}
         nodes={nodes}
