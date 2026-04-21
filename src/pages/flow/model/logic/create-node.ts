@@ -3,7 +3,7 @@ import type {
   CustomNodeType,
   DataType,
   HandleParam,
-} from "./node.types";
+} from "../typing";
 
 type PartialProps = Partial<Omit<CustomNode, "position">>;
 type RequiredProps = {

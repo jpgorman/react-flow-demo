@@ -1,6 +1,6 @@
 import { Panel } from "@xyflow/react";
 import { memo } from "react";
-import type { CustomNodeType } from "../model/node.types";
+import type { CustomNodeType } from "../model";
 
 const styles = {
   button: {

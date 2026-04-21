@@ -1,4 +1,4 @@
-import type { CustomNode } from "./node.types";
+import type { CustomNode } from "../typing";
 
 type Position = CustomNode["position"];
 
